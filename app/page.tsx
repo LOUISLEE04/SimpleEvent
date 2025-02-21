@@ -1,9 +1,19 @@
 import Image from "next/image";
 import DataTable from "./DataTable/DataTable";
 import { EventDetails } from "./types/EventDetails.types";
+import { cn } from "@/lib/utils"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 //importing the files
 
-export default function Home() {
+/*export default function Home() {
+
   //so right here we add constant event data (type is eventdetails)
   const eventData: EventDetails[] = [
     { name: "Event 1" },
@@ -18,97 +28,70 @@ export default function Home() {
     //solved with putting another <> as per suggested by VSC, tbc
     //something about needing at least one parent
     <><DataTable data={eventData}></DataTable>
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20} />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docssss
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16} />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16} />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16} />
-          Go to nextjs.org →
-        </a>
-
-      </footer>
-    </div></>
-    
+    </>
   );
+}*/
+
+//tbc, this line requires more study to double confirm
+
+//here we create the eventlist for the card
+  
+const eventlist = [
+  {
+    title: "Meeting in The Foundry",
+    description: "163 Great George St"
+  }
+]
+
+//declaring the type of the card as CardProps
+type CardProps = React.ComponentProps<typeof Card>
+
+export default function CardDemo({className, ...props}: CardProps){
+  <title>Testing</title>
+  return (
+    //tbc this line
+    <Card className={cn("w-[380px]",className)} {...props}>
+      <CardHeader>
+        <CardTitle>Event List</CardTitle>
+        <CardDescription>Here are the upcoming events</CardDescription>
+      </CardHeader>
+      {/*set the gap as 4*/}
+      <CardContent className="grid gap-4">
+        {/* div is used to group and structure large stuff,
+           span is used to apply stuff to smaller portion of text 
+           mb is margin bottom is 4, bigger space
+           1fr is 1 part of the available space
+           grid-cols is grid item size and location*/}
+        {eventlist.map((notification,index) => (
+          <div
+            key={index}
+            className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
+            >
+              {/* This is for the button, h is height of circle, w is width
+                  translate-y-1 is to allign it correctly (TBC why it couldnt be alligned at first place)
+                  rounded-full is for perfect circle
+                  bg-sky is the color of the circle */}
+              {/* The reason translate is to allign, not allign properly at first due to baseline,
+                  the circle doesnt have text but the text have text, so the baseline is different
+                   -1 means down 0.25rem, every 1 is 0.25rem, to move up is -y--1, not "+"*/}
+              <span className="h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
+            
+            <div className="space-y-1">
+              <p className="text-sm font-medium leading-none">
+                {notification.title}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {notification.description}
+              </p>
+            </div>
+            </div>
+          
+        ))}
+
+      </CardContent>
+      <CardFooter>
+    </CardFooter>
+    </Card>
+  )
 }
