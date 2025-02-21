@@ -63,7 +63,7 @@ export default function CardDemo({className, ...props}: CardProps){
            mb is margin bottom is 4, bigger space
            1fr is 1 part of the available space
            grid-cols is grid item size and location*/}
-        {eventlist.map((notification,index) => (
+        {eventlist.map((event_list,index) => (
           <div
             key={index}
             className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0"
@@ -79,10 +79,10 @@ export default function CardDemo({className, ...props}: CardProps){
             
             <div className="space-y-1">
               <p className="text-sm font-medium leading-none">
-                {notification.title}
+                {event_list.title}
               </p>
               <p className="text-sm text-muted-foreground">
-                {notification.description}
+                {event_list.description}
               </p>
             </div>
             </div>
